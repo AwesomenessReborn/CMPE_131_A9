@@ -1,10 +1,10 @@
 from app import myapp_obj
 from flask import render_template
 from flask import redirect
+from flask import session
 from app.forms import LoginForm
 from app.models import User, Profile
 from app import db
-# from <X> import <Y>
 
 @myapp_obj.route("/")
 def main():
@@ -20,12 +20,11 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         print(f"Here is the input from the user {form.username.data} and {form.password.data}")
+        session['logged_in'] = True
         return redirect("/")
     else:
         print("MOOOO MOOO")
     return render_template("login.html", form=form)
-    # What is render template returning?
-    #return str(type(render_template("login.html", form=form)))
 
 @myapp_obj.route("/showall")
 def showall(): 
